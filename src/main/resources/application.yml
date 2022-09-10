@@ -1,0 +1,5 @@
+jarvis:
+  authentication:
+    enable: true
+    order: 1
+    timestamp-threshold: 1800000
