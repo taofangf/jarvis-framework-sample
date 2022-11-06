@@ -4,7 +4,7 @@ jarvis:
     order: 1
     timestamp-threshold: 1800000
   fastjson:
-    enable: false
+    enable: true
   tomcat:
     ports:
       ports: 8081,8082
