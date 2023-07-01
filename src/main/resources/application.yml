@@ -6,5 +6,4 @@ jarvis:
   fastjson:
     enable: true
   tomcat:
-    ports:
-      ports: 8081,8082
+    ports: 8081,8082

@@ -34,6 +34,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <start-class>org.jarvisframework.sample.SampleApplication</start-class>
     </properties>
 
     <dependencies>
@@ -78,6 +79,19 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <layout>ZIP</layout>
+                    <includes>
+                        <include>
+                            <groupId>nothing</groupId>
+                            <artifactId>nothing</artifactId>
+                        </include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
@@ -86,12 +100,10 @@
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
                             <!-- 是否要把第三方jar加入到类构建路径 -->
-                            <addClasspath>true</addClasspath>
+                            <!--<addClasspath>true</addClasspath>-->
                             <!-- 外部依赖jar包的最终位置 -->
                             <!-- 因为我们将第三方jar和本项目jar放在同一个目录下，这里就使用./ -->
-                            <classpathPrefix>./</classpathPrefix>
-                            <!-- 项目启动类 -->
-                            <mainClass>org.jarvisframework.sample.SampleApplication</mainClass>
+                            <!--<classpathPrefix>./</classpathPrefix>-->
                         </manifest>
                     </archive>
                 </configuration>
@@ -101,16 +113,13 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>
-                        <!--具体的配置文件-->
                         <descriptor>src/main/assembly/assembly.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <!--绑定到maven操作类型上-->
                         <phase>package</phase>
-                        <!--运行一次-->
                         <goals>
                             <goal>single</goal>
                         </goals>

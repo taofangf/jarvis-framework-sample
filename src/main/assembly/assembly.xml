@@ -16,11 +16,6 @@
   -->
 
 <assembly>
-    <!--
-        必须写，否则打包时会有 assembly ID must be present and non-empty 错误
-        这个名字最终会追加到打包的名字的末尾，如项目的名字为 hangge-test-0.0.1-SNAPSHOT,
-        则最终生成的包名为 hangge-test-0.0.1-SNAPSHOT-bin.tar.gz
-     -->
     <id>bin</id>
     <!-- 打包的类型，如果有N个，将会打N个类型的包 -->
     <formats>
@@ -78,25 +73,6 @@
             <includes>
                 <include>*.jar</include>
             </includes>
-        </fileSet>
-        <!-- 将项目说明文档打包到docs目录中 -->
-        <fileSet>
-            <directory>.</directory>
-            <outputDirectory>docs</outputDirectory>
-            <includes>
-                <include>*.md</include>
-            </includes>
-            <fileMode>0644</fileMode>
-        </fileSet>
-        <fileSet>
-            <directory>docs</directory>
-            <outputDirectory>docs</outputDirectory>
-            <fileMode>0644</fileMode>
-        </fileSet>
-        <fileSet>
-            <directory>src/main/assembly/docs</directory>
-            <outputDirectory>docs</outputDirectory>
-            <fileMode>0644</fileMode>
         </fileSet>
     </fileSets>
 </assembly>
