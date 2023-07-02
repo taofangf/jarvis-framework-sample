@@ -39,6 +39,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-loader</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jarvis</groupId>
             <artifactId>jarvis-common-web</artifactId>
             <version>1.0-SNAPSHOT</version>

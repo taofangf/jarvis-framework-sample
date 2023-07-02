@@ -17,8 +17,14 @@
 
 package org.jarvisframework.sample;
 
+import org.jarvisframework.sample.desensitization.domain.UserInfo;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 /**
  * SpringBoot启动类
@@ -29,6 +35,44 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SampleApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SampleApplication.class, args);
+        SpringApplication springApplication = new SpringApplication(SampleApplication.class);
+        springApplication.run(args);
+    }
+
+    @Bean
+    public UserInfo userInfo() {
+        return new UserInfo().setUsername("哈哈");
+    }
+
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter((request, response, chain) -> {
+            System.out.println("enter custom filter...");
+            chain.doFilter(request, response);
+        });
+        registration.addUrlPatterns("/*");
+        registration.setOrder(1);
+        registration.setName("TestFilter");
+        return registration;
+    }
+
+    /**
+     * 方案一：类实例化后修改属性禁用掉该过滤器
+     * 方案二：{@link DisableCustomFilterBeanFactoryPostProcessor}
+     */
+    @Component
+    public class DisableCustomFilterBeanPostProcessor implements BeanPostProcessor {
+        @Override
+        public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+            if (bean instanceof FilterRegistrationBean) {
+                System.out.println("beanName = " + beanName);
+                if ("filterRegistrationBean".equals(beanName)) {
+                    FilterRegistrationBean filterRegistrationBean = (FilterRegistrationBean) bean;
+                    filterRegistrationBean.setEnabled(false);
+                }
+            }
+            return bean;
+        }
     }
 }
