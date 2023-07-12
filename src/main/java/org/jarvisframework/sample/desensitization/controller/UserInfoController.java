@@ -32,8 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserInfoController {
     @GetMapping("/user")
     public CommonResult<UserInfo> user() {
-        UserInfo userInfo = new UserInfo().setUsername("贾维斯").setPassword("jarvis@123456")
-                .setPhoneNumber("13834567987");
+        UserInfo userInfo = UserInfo.builder().username("贾维斯").password("jarvis@123456")
+                .phoneNumber("13834567987").build();
         return CommonResult.ofSuccess(userInfo);
     }
 }

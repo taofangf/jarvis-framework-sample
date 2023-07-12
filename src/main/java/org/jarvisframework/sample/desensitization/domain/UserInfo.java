@@ -19,10 +19,11 @@ package org.jarvisframework.sample.desensitization.domain;
 
 import cn.hutool.core.util.DesensitizedUtil;
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.jarvisframework.common.desensitization.annotation.Desensitization;
 import org.jarvisframework.sample.desensitization.service.HideDesensitization;
-
-import java.util.StringJoiner;
 
 /**
  * 用户信息实体类
@@ -30,6 +31,9 @@ import java.util.StringJoiner;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0.0
  */
+@Getter
+@Setter
+@Builder
 public class UserInfo {
     /**
      * 用户名
@@ -49,40 +53,4 @@ public class UserInfo {
     @Desensitization(DesensitizedUtil.DesensitizedType.MOBILE_PHONE)
     @JSONField(name = "telNum")
     private String phoneNumber;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public UserInfo setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public UserInfo setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public UserInfo setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", UserInfo.class.getSimpleName() + "[", "]")
-                .add("username='" + username + "'")
-                .add("password='" + password + "'")
-                .add("phoneNumber='" + phoneNumber + "'")
-                .toString();
-    }
 }

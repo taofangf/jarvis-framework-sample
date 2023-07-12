@@ -41,7 +41,7 @@ public class SampleApplication {
 
     @Bean
     public UserInfo userInfo() {
-        return new UserInfo().setUsername("哈哈");
+        return UserInfo.builder().username("哈哈").build();
     }
 
     @Bean
